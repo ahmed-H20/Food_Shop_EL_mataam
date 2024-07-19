@@ -13,7 +13,4 @@ const Main = () => {
   )
 }
 
-dfdfc
-
-
 export default Main;
