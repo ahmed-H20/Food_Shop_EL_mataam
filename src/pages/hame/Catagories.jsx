@@ -2,10 +2,10 @@ import React from 'react'
 
 function Catagories() {
     const cardsItems = [
-        {id:1, image:"../../../public/images/home/category/img1.png", title:"Main Dish", des:"(86 dishes)"},
-        {id:2, image:"../../../public/images/home/category/img2.png", title:"Break Fast", des:"(12 break fast)"},
-        {id:3, image:"../../../public/images/home/category/img3.png", title:"Dessert", des:"(48 dessert)"},
-        {id:4, image:"../../../public/images/home/category/img4.png", title:"Browse All", des:"(255 Items)"},
+        {id:1, image:"/images/home/category/img1.png", title:"Main Dish", des:"(86 dishes)"},
+        {id:2, image:"/images/home/category/img2.png", title:"Break Fast", des:"(12 break fast)"},
+        {id:3, image:"/images/home/category/img3.png", title:"Dessert", des:"(48 dessert)"},
+        {id:4, image:"/images/home/category/img4.png", title:"Browse All", des:"(255 Items)"},
     ]
      
   return (
