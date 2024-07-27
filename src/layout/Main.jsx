@@ -8,7 +8,9 @@ const Main = () => {
   return (
     <div>
         <Nav/>
+        <div className='min-h-screen'>
         <Outlet/>
+        </div>
         <Footer/>
     </div>
   )
