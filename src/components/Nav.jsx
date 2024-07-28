@@ -26,14 +26,7 @@ const Nav = () => {
       <a href='/'>Home</a>
     </li>
     <li>
-      <details>
-        <summary>Menu</summary>
-        <ul className="p-2">
-          <li><a href='/menu'>All</a></li>
-          <li><a>Pizza</a></li>
-          <li><a>Salad</a></li>
-        </ul>
-      </details>
+      <a href="/menu">Menu</a>
     </li>
     <li>
       <details>
