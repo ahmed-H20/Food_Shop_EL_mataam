@@ -7,7 +7,6 @@ const router = createBrowserRouter([
     {
       path: "/",
       element: <Main/>,
-      //replace "outlet" with "Home" component in Main page 
       children:[
         {
           path:"/",
@@ -15,7 +14,7 @@ const router = createBrowserRouter([
         },
         {
           path: "/menu",
-          element: <Menu/>,
+          element: <Menu />,
         }
       ]
     },
