@@ -1,20 +1,58 @@
 import React from 'react'
-
+import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
+import { useForm } from "react-hook-form"
+import { Link } from 'react-router-dom'
 const Modal = () => {
-  return (
-    <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click the button below to close</p>
-            <div className="modal-action">
-            <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Close</button>
-            </form>
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+      } = useForm()
+    
+      const onSubmit = (data) => console.log(data)
+    return (
+        <dialog id="my_modal_5" className="modal modal-middle  sm:modal-middle">
+            <div className="modal-box">           
+                <div className="modal-action flex flex-col justify-center mt-0 ">
+                    <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <h3 className="font-bold text-lg">Login please!</h3>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Email</span>
+                            </label>
+                            <input type="email" placeholder="email" className="input input-bordered"  {...register("email")}/>
+                            </div>
+                            <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+                            </label>
+                            <input type="password" placeholder="password" className="input input-bordered"  {...register("password")}/>
+                            <label className="label">
+                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                            </label>
+                        </div>
+                        <div className="form-control mt-6">
+                            <button className="btn bg-green text-white">Login</button>
+                        </div>
+                        <p className='text-center mt-4'>Donot have an account? <Link to="/signup" className="text-red underline">SignUp Now</Link></p>
+                        <div className='flex justify-center space-x-3 my-6'>
+                            <button className="btn btn-circle">
+                                <FaGoogle />
+                            </button>
+                            <button className="btn btn-circle">
+                                <FaFacebookF />
+                            </button>
+                            <button className="btn btn-circle">
+                                <FaGithub />
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </dialog>
-  )
+        </dialog>
+    )
 }
 
 export default Modal

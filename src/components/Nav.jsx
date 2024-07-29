@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from '../../public/logo.png';
 import { TbPhoneCall } from "react-icons/tb";
 import { FaRegUser } from 'react-icons/fa';
+import Modal from './Modal';
 
 const Nav = () => {
   // Make nav bar sticky when scroll
@@ -133,6 +134,7 @@ const Nav = () => {
           onClick={()=>document.getElementById('my_modal_5').showModal()}>
             <FaRegUser /> Login
           </button>
+          <Modal/>
         </div>
       </div>
     </header>
