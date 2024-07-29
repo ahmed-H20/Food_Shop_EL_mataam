@@ -3,7 +3,6 @@ import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom' 
 import Modal from './Modal'
-import Nav from './Nav'
 
 const Signup = () => {
     const {
@@ -14,7 +13,6 @@ const Signup = () => {
       } = useForm()
     
       const onSubmit = (data) => console.log(data)
-
   return (
     <div className='max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20'>
          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>            
@@ -49,6 +47,7 @@ const Signup = () => {
                 <button className="btn btn-circle">
                     <FaGithub />
                 </button>
+               
             </div>
         </form>
     </div>
