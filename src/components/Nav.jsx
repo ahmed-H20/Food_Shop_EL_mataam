@@ -4,6 +4,7 @@ import { TbPhoneCall } from "react-icons/tb";
 import { FaRegUser } from 'react-icons/fa';
 import Modal from './Modal';
 import { AuthContext } from '../contexts/AuthProvider';
+import Profile from './Profile';
 
 const Nav = () => {
   // Make nav bar sticky when scroll
@@ -132,10 +133,10 @@ const Nav = () => {
               </div>
             </div>
           </div>
-          {/* Contact button */}
+          {/* Contact button & profile */}
           {
             user 
-            ? <p>Logout</p>
+            ? <Profile/>
             : <button className="btn bg-green rounded-full px-6 text-white gab-2 flex items-center"
             onClick={()=>document.getElementById('my_modal_5').showModal()}>
               <FaRegUser /> Login
