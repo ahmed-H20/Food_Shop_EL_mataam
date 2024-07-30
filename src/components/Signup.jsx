@@ -1,18 +1,60 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom' 
+import { Link, useLocation, useNavigate } from 'react-router-dom' 
 import Modal from './Modal'
+import { AuthContext } from '../contexts/AuthProvider'
 
 const Signup = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
       } = useForm()
-    
-      const onSubmit = (data) => console.log(data)
+      const {signinWithGmail,createUser} = useContext(AuthContext);
+      const [errorMassage, setErrorMassege] = useState("");
+    //   const onSubmit = (data) => {
+    //     createUser(data.email,data.password)
+    //     .then((result)=>{
+    //         const user = result.user;
+    //         alert("Create account Success!")
+    //    }).catch((error) => {
+    //         const errorMessage = error.message;
+    //         setErrorMassege(errorMessage);
+    //     })
+    //   }
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
+   
+      const onSubmit = (data) => {
+        const email = data.email;
+        const password = data.password;
+        createUser(email, password).then((result) => {
+          // Signed up 
+          const user = result.user;
+          alert("Account creation successfully done!")
+          document.getElementById("my_modal_5").close()
+          navigate(from, {replace: true})
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+        })
+      }
+
+      //google login 
+    const handLogin = ()=>{
+        signinWithGmail().then((result)=>{
+            const user = result.user;
+            alert("Login Success")
+        }).catch((error)=> {
+            const errorMessage = error.message;
+            alert("Login Failed!")
+        })
+    }
   return (
     <div className='max-w-md bg-white shadow w-full mx-auto flex items-center justify-center my-20'>
          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>            
@@ -32,13 +74,16 @@ const Signup = () => {
                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                 </label>
             </div>
+            {
+                errorMassage ? <p className='text-red text-sm italic'>{errorMassage}</p> : ""
+            }
             <div className="form-control mt-6">
                 <button className="btn bg-green text-white">Signup</button>
             </div>
             <p className='text-center mt-4'>Do you have an account? <button onClick={()=>document.getElementById('my_modal_5').showModal()} className="text-red underline">Signin</button></p>
             <Modal/>
             <div className='flex justify-center space-x-3 my-6'>
-                <button className="btn btn-circle">
+                <button className="btn btn-circle" onClick={handLogin}>
                     <FaGoogle />
                 </button>
                 <button className="btn btn-circle">
