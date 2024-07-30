@@ -47,7 +47,6 @@ const Nav = () => {
     </li>
   </>);
   const {user} = useContext(AuthContext);
-
   return (
     <header className='max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out '>
       <div className={`navbar xl:px-24 ${isSticky? "shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""} `}>
@@ -136,7 +135,7 @@ const Nav = () => {
           {/* Contact button & profile */}
           {
             user 
-            ? <Profile/>
+            ? <Profile user={user}/>
             : <button className="btn bg-green rounded-full px-6 text-white gab-2 flex items-center"
             onClick={()=>document.getElementById('my_modal_5').showModal()}>
               <FaRegUser /> Login
