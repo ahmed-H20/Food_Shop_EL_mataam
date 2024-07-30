@@ -1,16 +1,46 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthProvider'
 const Modal = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
       } = useForm()
+    const {signinWithGmail,logIn} = useContext(AuthContext);
+    const  [errorMessage,setErrorMessage] = useState("")
+
+    // redirecting to home page or specifig page
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
+  
     
-      const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => {
+       logIn(data.email,data.password).then((result)=>{
+            const user = result.user;
+            alert("Login Success")
+            document.getElementById("my_modal_5").close()
+            navigate(from, {replace: true})
+       }).catch((error)=> {
+            const errorMassege = error.message;
+            setErrorMessage("Provide a correct email and password!")
+       })
+    };    
+    //google login 
+    const handLogin = ()=>{
+        signinWithGmail().then((result)=>{
+            const user = result.user;
+            alert("Login Success")
+        }).catch((error)=> {
+            const errorMessage = error.message;
+            alert("Login Failed!")
+        })
+    }
+
+    
     return (
         <dialog id="my_modal_5" className="modal modal-middle  sm:modal-middle">
             <div className="modal-box">           
@@ -35,12 +65,15 @@ const Modal = () => {
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
+                        {
+                            errorMessage ? <p className='text-red text-sm italic'>{errorMessage}</p> : ""
+                        }                        
                         <div className="form-control mt-6">
                             <button className="btn bg-green text-white">Login</button>
                         </div>
                         <p className='text-center mt-4'>Donot have an account? <Link to="/signup" className="text-red underline">SignUp Now</Link></p>
                         <div className='flex justify-center space-x-3 my-6'>
-                            <button className="btn btn-circle">
+                            <button className="btn btn-circle" onClick={handLogin}>
                                 <FaGoogle />
                             </button>
                             <button className="btn btn-circle">
