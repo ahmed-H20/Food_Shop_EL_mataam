@@ -1,18 +1,20 @@
 /* eslint-disable react/prop-types */
 import React, { useCallback, useContext } from 'react'
 import { FaRegUserCircle } from 'react-icons/fa'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../contexts/AuthProvider'
 
 const Profile = ({ user }) => {
   const {SignOUt} = useContext(AuthContext)
-
+  const navigate = useNavigate();
   const handleLogOut = () => {
-    SignOUt().then(()=>{
-      alert ("logout success!")
-      Navigate("/", {replace: true})
-    })
-    .catch((error)=>console.log(error))
+    SignOUt().then(() => {
+      
+    }).catch((error) => {
+      console.log(error)
+    });
+    alert ("logout success!")
+    navigate("/signup", {replace: true})
   }
   return (
     <div>       

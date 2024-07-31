@@ -35,7 +35,7 @@ const Signup = () => {
           const user = result.user;
           alert("Account creation successfully done!")
           document.getElementById("my_modal_5").close()
-          navigate(from, {replace: true})
+          navigate("/", {replace: true})
           // ...
         })
         .catch((error) => {
@@ -50,6 +50,7 @@ const Signup = () => {
         signinWithGmail().then((result)=>{
             const user = result.user;
             alert("Login Success")
+            navigate("/", {replace: true})
         }).catch((error)=> {
             const errorMessage = error.message;
             alert("Login Failed!")
