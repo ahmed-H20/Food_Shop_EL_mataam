@@ -1,9 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useCallback, useContext } from 'react'
 import { FaRegUserCircle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { AuthContext } from '../contexts/AuthProvider'
 
 const Profile = ({ user }) => {
+  const {SignOUt} = useContext(AuthContext)
+
+  const handleLogOut = () => {
+    SignOUt().then(()=>{
+      alert ("logout success!")
+      Navigate("/", {replace: true})
+    })
+    .catch((error)=>console.log(error))
+  }
   return (
     <div>       
     <div className="dropdown dropdown-end">
@@ -24,7 +34,7 @@ const Profile = ({ user }) => {
         </li>
         <li><a>Order</a></li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><a onClick={handleLogOut}>Logout</a></li>
       </ul>
     </div> 
     </div>

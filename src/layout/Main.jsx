@@ -1,18 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Outlet } from 'react-router-dom';
 import Nav from '../components/Nav';
 import '../App.css';
 import Footer from '../components/Footer';
+import { AuthContext } from '../contexts/AuthProvider';
+import Loading from '../components/Loading';
+
 
 const Main = () => {
+  const {loading} = useContext(AuthContext)
   return (
     <div>
-        <Nav/>
-          <div className='min-h-screen'>
-        <Outlet/>
+      {
+        loading ? 
+        <Loading/>
+        :
+        <div>
+          <Nav/>
+          <Outlet/>
+          <Footer/>
         </div>
-        <Footer/>
+      }
     </div>
+    
   )
 }
 
