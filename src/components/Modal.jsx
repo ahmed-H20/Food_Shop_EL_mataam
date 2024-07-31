@@ -17,7 +17,11 @@ const Modal = () => {
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || "/";
   
-    
+    const closeForm = () => {
+        document.getElementById('my_modal_5').close();
+        setErrorMessage("");
+        document.getElementById("my_form").reset();    }
+
     const onSubmit = (data) => {
        logIn(data.email,data.password).then((result)=>{
             const user = result.user;
@@ -45,10 +49,11 @@ const Modal = () => {
         <dialog id="my_modal_5" className="modal modal-middle  sm:modal-middle">
             <div className="modal-box">           
                 <div className="modal-action flex flex-col justify-center mt-0 ">
-                    <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
                     htmlFor = "my_modal_5"
-                    onClick={()=>document.getElementById('my_modal_5').close()}>✕</button>
+                    onClick={closeForm}>✕</button>
+                    <form className="card-body" id='my_form' onSubmit={handleSubmit(onSubmit)}>
+                    
                         <h3 className="font-bold text-lg">Login please!</h3>
                         <div className="form-control">
                             <label className="label">
