@@ -15,7 +15,7 @@ const Menu = () => {
         //fetch data
         const fetchedData = async () => {
             try{
-                const response = await fetch("images/menu.json");
+                const response = await fetch("http://localhost:3000/menu");
                 const data = await response.json();
                 setMenu(data);
                 setFilteredItems(data);
