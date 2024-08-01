@@ -4,6 +4,7 @@ import Home from "../pages/hame/Home";
 import Menu from "../pages/shop/Menu";
 import Signup from "../components/Signup";
 import PrivateRouter from "../PrivateRoter/PrivateRouter";
+import CartPage from "../pages/shop/CartPage";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
         {
           path: "/menu",
           element: <PrivateRouter><Menu /></PrivateRouter>,
+        },
+        {
+          path:"/cart_page",
+          element:<CartPage/>
         }
       ]
     },
