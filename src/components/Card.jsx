@@ -1,14 +1,66 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
+import Swal from 'sweetalert2';
 
 const Card = ({ item }) => {
   const [isHeartFilled, setIsHeartFilled] = useState(false);
+  const {user} = useContext(AuthContext);
+  const {name, image, price, recipe, _id} = item;
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
   };
+
+  // Add cart btn
+  const handleAddCart = (item) => {
+   if(user && user?.email){
+    const cartItem = {
+      menuItemId : _id,
+      name,
+      quantity:1,
+      image,
+      price,
+      email:user.email,
+    }
+    fetch("http://localhost:3000/carts", {
+      method: "POST",
+      body: JSON.stringify(cartItem),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Added to cart",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    })
+   }
+   else{
+    Swal.fire({
+      title: "Please Login?",
+      text: "Without an account can`t able to add products",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Signup"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/signup", {state:{from:location}})
+      }
+    });
+   }
+  }
   return (
     <div to={`/menu/${item._id}`} className="card shadow-xl relative mr-5 md:my-5">
       <div
@@ -31,7 +83,7 @@ const Card = ({ item }) => {
           <h5 className="font-semibold">
             <span className="text-sm text-red">$ </span> {item.price}
           </h5>
-          <button className="btn bg-green text-white">Add to Cart </button>
+          <button className="btn bg-green text-white" onClick={()=>{handleAddCart(item)}}>Add to Cart </button>
         </div>
       </div>
     </div>
