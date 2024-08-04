@@ -4,6 +4,8 @@ import { FaHeart } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import Swal from 'sweetalert2';
+import { useQuery } from "@tanstack/react-query";
+import useCart from "../hooks/useCart";
 
 const Card = ({ item }) => {
   const [isHeartFilled, setIsHeartFilled] = useState(false);
@@ -11,6 +13,7 @@ const Card = ({ item }) => {
   const {name, image, price, recipe, _id} = item;
   const navigate = useNavigate();
   const location = useLocation();
+  const [cart, refetch] = useCart();
 
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
@@ -43,6 +46,7 @@ const Card = ({ item }) => {
         showConfirmButton: false,
         timer: 1500
       });
+      refetch();
     })
    }
    else{
